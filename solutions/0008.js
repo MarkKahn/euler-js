@@ -25,7 +25,7 @@ module.exports = function(){
 	  ;
 
 	for( i=0; i<len; i++ ){
-		prod = eval( num.substr( i, 5 ).split( '' ).join( '*' ) );
+		prod = eval( num.substr( i, 13 ).split( '' ).join( '*' ) );
 		if( prod > max ){ max = prod; }
 	}
 
