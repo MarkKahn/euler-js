@@ -1,0 +1,16 @@
+{
+               "curly" : true
+    ,         "eqnull" : true
+    ,         "freeze" : true
+	,       "laxcomma" : true
+	,       "laxbreak" : true
+	,       "quotmark" : "single"
+	,       "trailing" : true
+	,          "undef" : true
+	,         "unused" : "vars"
+	,           "expr" : true
+	,           "node" : true
+	,        "globals" : {
+		"Promise" : true
+	}
+}
