@@ -1,27 +1,36 @@
-const fetch = require('./fetch-data');
+const CircularLinkedList = require('../utils/circular-linked-list');
 
-module.exports = async function() {
-  const numPlayers = 447;
-  const lastMarbleValue = 7151000;
-  const marbles = [0, 2, 1];
-  const players = new Array(numPlayers);
-  let marbleIndex = 1;
+class Marble extends CircularLinkedList {
+  constructor(value) {
+    super();
+
+    this.value = value;
+  }
+}
+
+function playMarbleMania(numPlayers, lastMarbleValue) {
+  const players = new Uint32Array(numPlayers);
+  let marble = new Marble(0);
   players.fill(0);
 
-  for (let i = 3; i <= lastMarbleValue; i++) {
-    if (!(i % 10000)) console.log(i);
+  for (let i = 1; i <= lastMarbleValue; i++) {
     if (i % 23) {
-      marbleIndex += 2;
-      if (marbleIndex > marbles.length) marbleIndex -= marbles.length;
-      marbles.splice(marbleIndex, 0, i);
+      const newMarble = new Marble(i);
+      marble = marble.next.insert(newMarble).next;
     } else {
-      let removeIndex = marbleIndex - 7;
-      if (removeIndex < 0) removeIndex += marbles.length;
-      players[i % numPlayers] += i + marbles[removeIndex];
-      marbles.splice(removeIndex, 1);
-      marbleIndex = removeIndex;
+      const marbleToRemove = marble.prev.prev.prev.prev.prev.prev.prev;
+      marble = marbleToRemove.next;
+      marbleToRemove.remove();
+      players[i % numPlayers] += i + marbleToRemove.value;
     }
   }
 
   return Math.max(...players);
+}
+
+module.exports = async function() {
+  const numPlayers = 447;
+  const lastMarbleValue = 71510;
+
+  return [playMarbleMania(numPlayers, lastMarbleValue), playMarbleMania(numPlayers, lastMarbleValue * 100)];
 };
