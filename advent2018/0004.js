@@ -43,6 +43,6 @@ module.exports = async function() {
   const sleepyGuardMinutes = guardData.get(sleepyGuardID);
   const longestSleepyTime = Math.max(...sleepyGuardMinutes);
   const mostSleepyMinute = sleepyGuardMinutes.indexOf(longestSleepyTime);
-  console.log(data.join("\n"));
+
   return [sleepyGuardID * mostSleepyMinute];
 };

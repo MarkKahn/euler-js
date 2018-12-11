@@ -1,10 +1,11 @@
 const rp = require("request-promise-native");
 const tough = require("tough-cookie");
 const fs = require("promise-fs");
+const cookie = require("../advent-cookie");
 
 const cookie = new tough.Cookie({
   key: "session",
-  value: "53616c7465645f5f8477b193f3e27d0b239da2b13ec36f7ada30349149e20a79",
+  value: cookie,
   domain: "adventofcode.com",
   maxAge: 60 * 60 * 24 * 365,
 });
