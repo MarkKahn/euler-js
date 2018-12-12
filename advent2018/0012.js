@@ -28,7 +28,6 @@ module.exports = async function() {
     });
 
     state = newState.join('');
-    // console.log(state);
   }
 
   // PART 1
@@ -44,7 +43,9 @@ module.exports = async function() {
   }
   const part1total = total;
 
-  // PART 2 -- the system stabilizes at some point so just run 1,000 cycles to figure out the gain per generation
+  // PART 2 -- the system stabilizes at some point so just run 1,000 cycles to figure out the gain per generation.
+  //           Note this may not work on all cases.  T(999) + (T(1000) - T(999)) * (50000000000 - 1000) is probably
+  //           more reliable
   for (let i = 0; i < 980; i++) runGeneration();
   total = 0;
   let strLen = state.length;
