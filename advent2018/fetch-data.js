@@ -1,16 +1,16 @@
-const rp = require("request-promise-native");
-const tough = require("tough-cookie");
-const fs = require("promise-fs");
-const cookie = require("../advent-cookie");
+const rp = require('request-promise-native');
+const tough = require('tough-cookie');
+const fs = require('promise-fs');
+const sessionCookie = require('../advent-cookie');
 
 const cookie = new tough.Cookie({
-  key: "session",
-  value: cookie,
-  domain: "adventofcode.com",
+  key: 'session',
+  value: sessionCookie,
+  domain: 'adventofcode.com',
   maxAge: 60 * 60 * 24 * 365,
 });
 const cookieJar = rp.jar();
-cookieJar.setCookie(cookie, "https://adventofcode.com");
+cookieJar.setCookie(cookie, 'https://adventofcode.com');
 
 async function fileExists(fileName) {
   try {
@@ -29,7 +29,7 @@ module.exports = function(dayNum) {
 
     if (exists) {
       const data = await fs.readFile(fileName);
-      resolve(data.toString().split("\n"));
+      resolve(data.toString().split('\n'));
     } else {
       return rp({
         uri: `https://adventofcode.com/2018/day/${dayNum}/input`,
@@ -38,7 +38,7 @@ module.exports = function(dayNum) {
         .then(body => body.trim())
         .then(body => {
           fs.writeFile(fileName, body);
-          return body.split("\n");
+          return body.split('\n');
         })
         .then(resolve);
     }
